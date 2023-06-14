@@ -1,6 +1,7 @@
 # calculator
-num1 = input('x1 = ')
-num2 = input('x2 = ')
+num1 = float(input('x1 = '))
+num2 = float(input('x2 = '))
+
 
 answer = num1 + num2
 print("sum = " + str(answer) + ".")
