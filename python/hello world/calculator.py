@@ -100,5 +100,5 @@ def bedmAS(var4):
 
 Bedmas(equation)
 
-
+ 
 
