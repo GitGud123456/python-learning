@@ -62,7 +62,7 @@ def bEdmas(var2):
         #print(isolatedE)
         [x1,x2] = re.findall(pattern3,isolatedE)
         #print([x1,x2])
-        sum1 = float(x1) ** float(x2)
+        sum1 = int(x1) ** int(x2)
         #print(sum1)
         updatedEquation = var2.replace(isolatedE,str(sum1))
         print(updatedEquation)
