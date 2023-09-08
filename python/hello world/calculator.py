@@ -5,8 +5,7 @@ equation = input("please enter your Equation ")
 
 pattern1 = r'\(.*?\)'  #Brackets
 pattern2 = r'\d*\d*\d\*\*\d\d*'  #Exponets 
-pattern3 = r'\.*\d\.*\d*\.*\d*\d*'  #isolate numbers from symbols
-pattern4 = r'\(' #Find number of bracket sets
+pattern3 = r'\d*\.*\d*\d*\d'  #isolate numbers from symbols
 pattern5 = r'\d*\d*\d\*\d\d*|\d*\d*\d\/\d\d*'  #mult and dividle 
 pattern6 = r'\*|\/'  # look at operator (*,/)
 pattern7 = r'\d*\.*\d*\d\-\d\d*|\d*\.*\d*\d\+\d\d*'  #add and subtract
@@ -49,7 +48,7 @@ def Bedmas(var):
         end = int(bracket_list[0][1])
         isolatedB = var[start:end+1]
         #print(var[start+1:end]
-        print(isolatedB)
+        #print(isolatedB)
         #bEdmas(isolatedB)
         return isolatedB
 
@@ -61,35 +60,38 @@ def bEdmas(var2):
        # beDMas(var2)
         return var2
     else:
-        brokenpart2 = re.findall(pattern2,var2)
-        isolatedE = ''.join(brokenpart2)
+        brokenpart2 = re.search(pattern2,var2)
+        isolatedE = brokenpart2.group()        # = ''.join(brokenpart2[0][3])
         #print(isolatedE)
         [x1,x2] = re.findall(pattern3,isolatedE)
         #print([x1,x2])
         sum1 = int(x1) ** int(x2)
         #print(sum1)
         updatedEquation = var2.replace(isolatedE,str(sum1))
-        print(updatedEquation)
-        beDMas(updatedEquation)
+        #print(updatedEquation)
+        return updatedEquation
 
 def beDMas(var3):
     test = re.findall(pattern6,var3)
     if len(test) == 0:
         global mult_div_done
         mult_div_done = True
-       # bedmAS(var3)
+        return var3
     else:
-        brokenMD = re.findall(pattern5,var3)
-        isolatedMD = ''.join(brokenMD)
-        sign = re.findall(pattern6,isolatedMD)
+        brokenMD = re.search(pattern5,var3)
+        isolatedMD = brokenMD.group()     #''.join(brokenMD)
+        sign = re.search(pattern6,isolatedMD).group()
         [x1,x2] = re.findall(pattern3,isolatedMD)
-        if sign == ['*']:
-            sum2 = float(x1) * float(x2)
+        if sign == '*':
+            sum2 = int(x1) * int(x2)
         else:
-            sum2 = float(x1) / float(x2)
+            sum2 = int(x1) / int(x2)
+            sum2 = str(sum2).replace(".0","")
+            float(sum2)
+
         updatedEquation = var3.replace(isolatedMD,str(sum2))
-        print(updatedEquation)
-        bedmAS(updatedEquation)
+        #print(updatedEquation)
+        return updatedEquation
 
 def bedmAS(var4):
     test = re.findall(pattern8,var4)
@@ -98,44 +100,57 @@ def bedmAS(var4):
         add_sub_done = True
         return var4
     else:
-        brokenAS = re.findall(pattern7,var4)
-        isolatedAS = ''.join(brokenAS)
-        sign = re.findall(pattern8,isolatedAS)
+        brokenAS = re.search(pattern7,var4)
+        isolatedAS = brokenAS.group()     #''.join(brokenAS)
+        sign = re.search(pattern8,isolatedAS).group()
         [x1,x2] = re.findall(pattern3,isolatedAS)
-        if sign == ['+']:
-            sum3 = float(x1) + float(x2)
+        if sign == '+':
+            sum3 = int(x1) + int(x2)
+            sum3 = str(sum3).replace(".0","")
+            float(sum3)
         else:
-            sum3 = float(x1) - float(x2)
+            sum3 = int(x1) - int(x2)
+            sum3 = str(sum3).replace(".0","")
+            float(sum3)
         updatedEquation = var4.replace(isolatedAS,str(sum3))
-        print(updatedEquation)
+        #print(updatedEquation)
         return updatedEquation
 
 
 
-def loop_till_done(b_done,e_done,dm_done,as_done,start_equation):
+def loop_till_done(start_equation):
     current_equation = Bedmas(start_equation)
-    if b_done == True & e_done == False:
+    #print(current_equation, start_equation)
+
+    if brackets_done == True:
         current_equation = bEdmas(current_equation)
-    elif e_done == True & mult_div_done == False:
-        current_equation = beDMas(current_equation)
-    elif mult_div_done == True & as_done == False:
-        current_equation = bedmAS(current_equation)
-    elif b_done == True & e_done == True & dm_done == True & as_done == True:
+        #print(current_equation)
+
+        if exponets_done == True:
+            current_equation = beDMas(current_equation)
+            #print(current_equation)
+            if mult_div_done == True:
+                current_equation = bedmAS(current_equation)
+                #print(current_equation)
+    if brackets_done == True & exponets_done == True & mult_div_done == True & add_sub_done == True:
         print("Done!", current_equation)
         return False
-
+    #print(True,current_equation)
+    global solvedpiece
+    solvedpiece = current_equation
     return True
 
-while loop_till_done:
-    loop_till_done(brackets_done,exponets_done,mult_div_done,add_sub_done,equation)
+solvedpiece = 0
+count = 0
+loop_stopper = True
+while loop_stopper == True:
+    
+    if count == 0:
+        loop_till_done(equation)
+        count += 1
+        
+    else:
+        loop_stopper = loop_till_done(solvedpiece)
 
 
 #Bedmas(equation)
-
-'''
-if brackets_done == True:
-    print("working")
-else:
-    print("fuck")
- 
-'''
