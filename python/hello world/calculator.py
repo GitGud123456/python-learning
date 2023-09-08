@@ -134,6 +134,7 @@ def loop_till_done(start_equation):
                 #print(current_equation)
     if brackets_done == True & exponets_done == True & mult_div_done == True & add_sub_done == True:
         print("Done!", current_equation)
+        print(find_innermost_brackets(equation))
         return False
     #print(True,current_equation)
     global solvedpiece
@@ -152,5 +153,3 @@ while loop_stopper == True:
     else:
         loop_stopper = loop_till_done(solvedpiece)
 
-
-#Bedmas(equation)
