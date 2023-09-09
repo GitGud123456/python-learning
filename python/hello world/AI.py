@@ -33,4 +33,20 @@ if a: # evaluates to True
         
 # the list is not empty!
 '''
+x = int(input("num"))
+def add(x):
+    x += 5
+    return sub(x)
 
+
+
+def sub(x):
+    x -=3
+    return mult(x)
+
+def mult(x):
+    x *= 2
+    return x
+
+output = add(x)
+print(output)
