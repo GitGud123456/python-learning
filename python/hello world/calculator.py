@@ -182,7 +182,7 @@ solvedpiece = 0
 count = 0
 loop_stopper = True
 while loop_stopper == True:
-    print(solvedpiece,"              ",equation)
+    print(solvedpiece)
     
     if count == 0:
         loop_till_done(equation)
