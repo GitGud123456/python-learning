@@ -74,7 +74,6 @@ while not done:
                 print("User let go of a key.")
         elif event.type == pygame.MOUSEBUTTONDOWN:
                 print("User pressed a mouse button")
-    print("escaped")
     # --- Game logic should go here
        
     # --- Drawing code should go here
