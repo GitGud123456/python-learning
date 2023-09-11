@@ -6,7 +6,7 @@ while loop:
   print("\nMAIN MENU")
   print("1: Roll Dice Once")
   print("2: Roll Dice Five Times")
-  print("3: Roll Dice 'x' Times")
+  print("3: Roll Dice 'n' Times")
   print("4: Roll Dice until Snake eyes")
   print("5: EXIT")
 
@@ -15,7 +15,7 @@ while loop:
   selection = input("Enter Selection (1-5): ")
 
   # roll x num
-  def roll(n):
+  def roll2Dice(n):
 
     for _ in range(n):
       import random
@@ -28,16 +28,16 @@ while loop:
   # Take Action Based on Menu Selection
 
   if selection == "1":
-    roll(1)
+    roll2Dice(1)
   elif selection == "2":
-    roll(5)
+    roll2Dice(5)
   elif selection == "3":
     x = float(input("enter the number of times you want to roll the Dice: "))
     x //= 1
-    roll(int(x))
+    roll2Dice(int(x))
   elif selection == "4":
     look_for_snake_eyes = True
-    rolls = roll(10000000)
+    rolls = roll2Dice(10000000)
     print("snake eyes found after", rolls, "rolls.")
     look_for_snake_eyes = False
   elif selection == "5":
