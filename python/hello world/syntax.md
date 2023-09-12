@@ -45,6 +45,13 @@ Operators[
     Subtraction: - Ex 5 - 2 = 3
     Addition: + Ex 2 + 2 = 4
     ]
+# Import the math library
+# This line is done only once, and at the very top
+# of the program.
+from math import *
+ 
+# Calculate x using sine and cosine
+x = sin(0) + cos(0)
 Augmented Assignment Operators[
     Operator	Equivalent
     var += 1	var = var + 1
