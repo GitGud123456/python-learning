@@ -40,6 +40,11 @@ import pygame
 # Initialize the game engine
 pygame.init()
 
+
+
+
+
+
 # Define some colors
 BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
