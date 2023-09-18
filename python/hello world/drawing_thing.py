@@ -23,13 +23,11 @@ a_pressed = False
 s_pressed = False
 d_pressed = False
 objects_list = []
-y = 100
-x = 100
-player = [x,y,20,20]
+
 
 
 def actionDetection():
-    global pressed_1, mouse_button,w_pressed,a_pressed,s_pressed,d_pressed,player,y,x
+    global pressed_1, mouse_button,w_pressed,a_pressed,s_pressed,d_pressed
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
             print("User asked to quit.")
@@ -71,7 +69,14 @@ def actionDetection():
 
 
 def draw_player(x,y):
-    objects_list.append([screen, RED, x, y, 20, 20,True])
+    for f in objects_list:
+        #print(f[6])
+        if f[6] == 12:
+            print(f)
+            f[2] = x
+            f[3] = y
+        else:
+            objects_list.append([screen, RED, x, y, 20, 20,12])
 
 def drawground(T_F):
         [x,y] = mouseLocation_finder()
@@ -83,6 +88,9 @@ def drawground(T_F):
         elif T_F == False:
             objects_list.append([screen, GREEN, x, y, 100, 10,False])
             objects_list.append([screen, BLACK, x, y+10, 100, 20,False])
+
+
+
 def mouseLocation_finder():
     mouse_pos = pygame.mouse.get_pos() 
     return mouse_pos
@@ -103,11 +111,13 @@ done = False
  
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
- 
+
+x=100
+y=100
 # -------- Main Program Loop -----------
 while not done:
 
-    player = [x,y,20,20]
+
     # --- Main event loop
     done == actionDetection()  # Flag that we are done so we exit this loop   
     # --- Game logic should go here
@@ -115,12 +125,14 @@ while not done:
         drawground(True)
     elif pressed_1 == True and mouse_button == False:
         drawground(False)
-    if w_pressed == True and d_pressed == False:
-        y = y - 10
+    if w_pressed == True and s_pressed == False:
+        y-=1
         draw_player(x,y)
-        print(x,y)
+    if w_pressed == False and s_pressed == True:
+        y+=1
+        draw_player(x,y)
 
-
+    print(len(objects_list))
     # --- Screen-clearing code goes here
     screen.fill(WHITE)
  
@@ -145,18 +157,20 @@ while not done:
         pygame.draw.rect(item[0], item[1], [item[2], item[3], item[4], item[5]], 0) 
         if item[6] == False:
             objects_list.remove(item)
+        if item[6] == 12:
+            objects_list.remove(item)
+
     
-    
-    
+
     for i in range(200):
-    
+        
         radians_x = i / 20
         radians_y = i / 6
-    
-        x = int(75 * math.sin(radians_x)) + 200
-        y = int(75 * math.cos(radians_y)) + 200
-    
-        pygame.draw.line(screen, BLACK, [x,y], [x+5,y], 5)
+        
+        xx = int(75 * math.sin(radians_x)) + 200
+        yy = int(75 * math.cos(radians_y)) + 200
+        
+        pygame.draw.line(screen, BLACK, [xx,yy], [xx+5,yy], 5)
 
     # This draws a triangle using the polygon command
     pygame.draw.polygon(screen, BLACK, [[100,100], [0,200], [200,200]], 5)
