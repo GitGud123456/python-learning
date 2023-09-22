@@ -13,18 +13,25 @@ def name(n):
     [first,last] = re.findall(decode_name_str,n)
     return [first,last]
      
-def rand_nick(r):
+def rand_nick(n):
     num = random.randint(0,len(nick_list))
-    return r[0] + " \"" + nick_list[num] + "\" " + r[1]
+    return n[0] + " \"" + nick_list[num-1] + "\" " + n[1]
 
 def show_all_nick():
-    num= 1
-    for name in nick_list:
+    num = 1
+    print(" ")
+    for nick in nick_list:
+        nick = str(num) + ": " + str(nick)
+        print(nick)
+        num += 1
 
-        print(name)
+def remove_nick(nick_num):
+    show_all_nick()
+    print("\nremoved: "+ nick_list[int(nick_num)-1] + "\n\nUpdated list: ")
+    nick_list.remove(nick_list[int(nick_num)-1])
+    show_all_nick()
+    
 
-def remove_nick():
-    nick_list.index()
 global split_Name
 split_Name = name(input("Enter Name:"))
 print(split_Name[0] + " " + split_Name[1])
@@ -34,7 +41,7 @@ while loop:
     
     #python print menu
     print("\nMAIN MENU")
-    print("1: Enter Name/Change Name")
+    print("1: Change Name")
     print("2: Display a Random Nickname")
     print("3: Display All Nicknames")
     print("4: Add a Nickname")
@@ -48,8 +55,6 @@ while loop:
     # Take Action Based on Menu Selection
 
     if selection == "1":
-        print("\nOption 1")
-        
         split_Name = name(input("Enter New Name:"))
         print ("Name changed to:" + split_Name[0] +" "+ split_Name[1])
     elif selection == "2":
@@ -57,10 +62,13 @@ while loop:
         print(rand_nick(split_Name))
     elif selection == "3":
         show_all_nick()
+        input("press ENTER to return to Main menu")
     elif selection == "4":
         add_nick(input("New Nickname:"))
     elif selection == "5":
-        print("\nOption 5")
+        show_all_nick()
+        remove_nick(input("Enter the number of the nick you want to remove: "))
+        input("press ENTER to return to Main menu")
     elif selection == "6":
         print("\nEXIT")
         loop = False
