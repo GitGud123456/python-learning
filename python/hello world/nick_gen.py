@@ -17,19 +17,21 @@ def rand_nick(n):
     num = random.randint(0,len(nick_list))
     return n[0] + " \"" + nick_list[num-1] + "\" " + n[1]
 
-def show_all_nick():
+def show_all_nick(n):
     num = 1
     print(" ")
     for nick in nick_list:
-        nick = str(num) + ": " + str(nick)
+        nick = str(num) + ": "+ str(n[0]) +" "+ str(nick) +" "+ str(n[1])
         print(nick)
         num += 1
 
 def remove_nick(nick_num):
-    show_all_nick()
-    print("\nremoved: "+ nick_list[int(nick_num)-1] + "\n\nUpdated list: ")
-    nick_list.remove(nick_list[int(nick_num)-1])
-    show_all_nick()
+    if int(nick_num) <= len(nick_list):
+        show_all_nick(split_Name)
+        print("\nremoved: "+ nick_list[int(nick_num)-1] + "\n\nUpdated list: ")
+        nick_list.remove(nick_list[int(nick_num)-1])
+        show_all_nick(split_Name)
+    else: print("Number entered greater than length of Nick List. Max acceptable Number:" + str(len(nick_list)))
     
 
 global split_Name
@@ -61,12 +63,12 @@ while loop:
         print ("\nOption 2")
         print(rand_nick(split_Name))
     elif selection == "3":
-        show_all_nick()
+        show_all_nick(split_Name)
         input("press ENTER to return to Main menu")
     elif selection == "4":
         add_nick(input("New Nickname:"))
     elif selection == "5":
-        show_all_nick()
+        show_all_nick(split_Name)
         remove_nick(input("Enter the number of the nick you want to remove: "))
         input("press ENTER to return to Main menu")
     elif selection == "6":
