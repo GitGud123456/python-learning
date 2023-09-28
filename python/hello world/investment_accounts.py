@@ -16,16 +16,16 @@ def make_accounts():
         finished_acc = Acc_make(add,acc_bal)
         account_list.append(finished_acc)
 
-#Print Accounts
-def print_Account(acc_num,acc_bal):
+def Account_Syntax(acc_num,acc_bal):
     return f"Account {acc_num}: ${acc_bal}"
 
+#Print Accounts
 def print_all_acc():
     print(" ")
     for account in range(0,len(account_list),1):
-        print(print_Account(account_list[account].num,account_list[account].bal))
+        print(Account_Syntax(account_list[account].num,account_list[account].bal))
 
-#Edit Accounts
+#Edit Account(s)
 def edit_Account(acc_num,new_bal,edit_type):
     if edit_type == "deposit" or edit_type == "withdrawal" and acc_num <= len(account_list):
         previous_bal = account_list[acc_num].bal
@@ -67,7 +67,7 @@ def under2000():
     print("COUNT UNDER 2000\n")
     list_under2000 = edit_Account(0,0,"CountUnder2000")
     for under2000 in range(0,len(list_under2000),1):
-        print(print_Account(list_under2000[under2000].num,list_under2000[under2000].bal))
+        print(Account_Syntax(list_under2000[under2000].num,list_under2000[under2000].bal))
     print("Accounts with less than $2000: "+ str(len(list_under2000)))
 
 def Generous_Donor():
