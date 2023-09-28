@@ -22,8 +22,8 @@ def Account_Syntax(acc_num,acc_bal):
 #Print Accounts
 def print_all_acc():
     print(" ")
-    for account in range(0,len(account_list),1):
-        print(Account_Syntax(account_list[account].num,account_list[account].bal))
+    for acc in range(0,len(account_list),1):
+        print(Account_Syntax(account_list[acc].num,account_list[acc].bal))
 
 #Edit Account(s)
 def edit_Account(acc_num,new_bal,edit_type):
