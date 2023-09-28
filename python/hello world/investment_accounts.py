@@ -23,26 +23,39 @@ class Acc_make(object):
 
 def make_accounts():
     for add in range(1,21,1):
-        
         acc_bal = random.randint(0,5000)
-        #print(print_Account(add,acc_bal))
-        finished_acc = Acc_make(add-1,acc_bal)
+        finished_acc = Acc_make(add,acc_bal)
         account_list.append(finished_acc)
-        #print(finished_acc.num)
-        account_list.append(finished_acc)
-        print(account_list[add-1].num)
+        #print(print_Account(account_list[add-1].num,account_list[add-1].bal))
+
+def print_all_acc():
+    for account in range(len(account_list)):
+        print_Account(account_list[account].num,account_list[account].bal)
 
 def deposit(acc_num,new_bal):
-    account_list[acc_num]
+    updated_info = edit_Account(int(acc_num)-1,int(new_bal),"deposit")
+    return updated_info
+
+
+
+def edit_Account(acc_num,new_bal,edit_type):
+    if acc_num <= len(account_list):
+        previous_bal = account_list[acc_num].bal
+        if edit_type == "deposit":
+            account_list[acc_num].bal += new_bal
+            updated_bal = account_list[acc_num].bal
+        elif edit_type == "withdrawal":
+            account_list[acc_num].bal -= new_bal
+            updated_bal = account_list[acc_num].bal  
+    return  previous_bal,updated_bal,acc_num+1
 
 
 
 
 
 
-
-
-
+if account_list == []:
+        make_accounts()
 
 while loop:
     #python print menu
@@ -64,9 +77,12 @@ while loop:
     # Take Action Based on Menu Selection
 
     if selection == "1":
-        make_accounts()
+        print_all_acc()
+        input("Press ENTER to return to main menu")
     elif selection == "2":
-        print ("\nOption 2")
+        New_info = deposit(input("Enter Account #: "),input("Enter Deposit Amount: "))
+        print(f'Account {New_info[2]} Previous Balance: ${New_info[0]}\nAccount {New_info[2]} New Balance: ${New_info[1]}')
+        input("Press ENTER to return to main menu")
     elif selection == "3":
         print("\nOption 3")
     elif selection == "4":
