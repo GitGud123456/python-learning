@@ -1,61 +1,88 @@
-# pytrhon menu loop
+# PYTHON INVESTMENT ACCOUNTS ASSIGNMENT
 import random
 loop = True
 global account_list
 account_list = []
 
-
-
-def print_Account(acc_num,acc_bal):
-    
-    return f"Account {acc_num}: ${acc_bal}"
-
+#Create Accounts
 class Acc_make(object):
-    def __init__(Acc,acc_num,acc_bal):
-        Acc.num = acc_num
-        Acc.bal = acc_bal
-
-#for att in dir(Acc):
- #   print(att, getattr(Acc,num))
-
-
-
+    def __init__(Acc,num,bal):
+        Acc.num = num
+        Acc.bal = bal
 
 def make_accounts():
     for add in range(1,21,1):
         acc_bal = random.randint(0,5000)
         finished_acc = Acc_make(add,acc_bal)
         account_list.append(finished_acc)
-        #print(print_Account(account_list[add-1].num,account_list[add-1].bal))
+
+#Print Accounts
+def print_Account(acc_num,acc_bal):
+    return f"Account {acc_num}: ${acc_bal}"
 
 def print_all_acc():
-    for account in range(len(account_list)):
-        print_Account(account_list[account].num,account_list[account].bal)
+    print(" ")
+    for account in range(0,len(account_list),1):
+        print(print_Account(account_list[account].num,account_list[account].bal))
 
-def deposit(acc_num,new_bal):
-    updated_info = edit_Account(int(acc_num)-1,int(new_bal),"deposit")
-    return updated_info
-
-
-
+#Edit Accounts
 def edit_Account(acc_num,new_bal,edit_type):
-    if acc_num <= len(account_list):
+    if edit_type == "deposit" or edit_type == "withdrawal" and acc_num <= len(account_list):
         previous_bal = account_list[acc_num].bal
         if edit_type == "deposit":
             account_list[acc_num].bal += new_bal
             updated_bal = account_list[acc_num].bal
         elif edit_type == "withdrawal":
+            if account_list[acc_num].bal < new_bal:
+                return "\nSorry, insufficient funds.\n"
             account_list[acc_num].bal -= new_bal
-            updated_bal = account_list[acc_num].bal  
-    return  previous_bal,updated_bal,acc_num+1
+            updated_bal = account_list[acc_num].bal
+        return  previous_bal,updated_bal,acc_num+1
+    elif edit_type == "CountUnder2000":
+        num_less_than_2000 = []
+        for acc in range(0,len(account_list),1):
+            if account_list[acc].bal < 2000:
+                num_less_than_2000.append(account_list[acc])
+        return num_less_than_2000
+    elif edit_type == "HackerAttack":
+        stolen_amount = 0
+        for acc in range(0,len(account_list),1):
+            stolen_amount += account_list[acc].bal * .05
+            account_list[acc].bal *= .95
+        return stolen_amount
+    
+#Edit Options
+def deposit(acc_num,new_bal):
+    updated_info = edit_Account(int(acc_num)-1,int(new_bal),"deposit")
+    print(f'\nAccount {updated_info[2]}\n Previous Balance: ${updated_info[0]}\n New Balance: ${updated_info[1]}\n')
 
+def withdrawal(acc_num,new_bal):
+    updated_info = edit_Account(int(acc_num)-1,int(new_bal),"withdrawal")
+    if updated_info == "\nSorry, insufficient funds.\n":
+        print(updated_info)
+    else:
+        print(f'\nAccount {updated_info[2]}\n Previous Balance: ${updated_info[0]}\n New Balance: ${updated_info[1]}\n')
 
+def under2000():
+    print("COUNT UNDER 2000\n")
+    list_under2000 = edit_Account(0,0,"CountUnder2000")
+    for under2000 in range(0,len(list_under2000),1):
+        print(print_Account(list_under2000[under2000].num,list_under2000[under2000].bal))
+    print("Accounts with less than $2000: "+ str(len(list_under2000)))
 
+def Generous_Donor():
+    list_under2000 = edit_Account(0,0,"CountUnder2000")
+    for under2000 in range(0,len(list_under2000),1):
+        list_under2000[under2000].bal += 500
+        #print(f'Account {list_under2000[under2000].num} Previous Balance: ${list_under2000[under2000].bal-500}\nAccount {list_under2000[under2000].num} New Balance: ${list_under2000[under2000].bal}\n')
+        print(f'Account {list_under2000[under2000].num}:\n  Previous Balance: ${list_under2000[under2000].bal-500}\n  New Balance: ${list_under2000[under2000].bal}\n')
 
+def Hacker_Attack():
+    amount_stolen = edit_Account(0,0,"HackerAttack")
+    print(f"HACKER ATTACK\nTotal Amount Stolen is ${amount_stolen}")
 
-
-if account_list == []:
-        make_accounts()
+#initialize list
+make_accounts()
 
 while loop:
     #python print menu
@@ -68,29 +95,26 @@ while loop:
     print("6: Hacker Attack")
     print("7: EXIT")
 
-    # Get Menu Selection from User
-
-    selection = input("Enter Selection #: ")
-
-
-
-    # Take Action Based on Menu Selection
+    selection = input("Enter Option #: ")
 
     if selection == "1":
         print_all_acc()
         input("Press ENTER to return to main menu")
     elif selection == "2":
-        New_info = deposit(input("Enter Account #: "),input("Enter Deposit Amount: "))
-        print(f'Account {New_info[2]} Previous Balance: ${New_info[0]}\nAccount {New_info[2]} New Balance: ${New_info[1]}')
+        deposit(input("Enter Account #: "),input("Enter Deposit Amount: $"))
         input("Press ENTER to return to main menu")
     elif selection == "3":
-        print("\nOption 3")
+        withdrawal(input("Enter Account #: "),input("Enter Withdrawal Amount: $"))
+        input("Press ENTER to return to main menu")
     elif selection == "4":
-        print("\nOption 4")
+        under2000()
+        input("Press ENTER to return to main menu")
     elif selection == "5":
-        print("\nOption 5")
+        Generous_Donor()
+        input("Press ENTER to return to main menu")
     elif selection == "6":
-        print("\nOption 6")
+        Hacker_Attack()
+        input("Press ENTER to return to main menu")
     elif selection == "7":
         print("\nEXIT")
         loop = False
