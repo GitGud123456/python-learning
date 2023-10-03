@@ -6,8 +6,11 @@ ranking_List = []
 
 def printList():
     if len(ranking_List) > 0:
+        var = 1
         for item in ranking_List:
-            print(Rank_Syntax(item.rank,item.data))
+            if item.rank == var:
+                print(Rank_Syntax(item.rank,item.data))
+                var += 1
     else: print("\nNo Items in the Rank List")
 
 #Create Accounts
@@ -28,13 +31,14 @@ def Remove_last():
     removed = ranking_List.pop()
     return f"{removed.data} removed from end of list."
 
+
 def insert_item(num,data):
     finished_object = item_make(num,data)
     for item in ranking_List:
-        print(type(item.rank),type(num))
+        print(item.rank,item.data)
         if item.rank <= num:
-            item.rank += 1
-            ranking_List.insert(finished_object.rank,finished_object.data)
+            item.rank +=1
+    ranking_List.insert(finished_object.rank,finished_object)
 
 
 
