@@ -6,12 +6,14 @@ global key_to_press,repeat_times,delay_between_press,time_till_stop
 keyboard = Controller()
 key_to_press = 13
 repeat_times = 500
-delay_between_press = .01
-time_till_stop = 100000
+delay_between_press = 1
+time_till_stop = 10000
 
 def check_if_Q(event):
     if event.Key == "Q":
-        press_enter(repeat_times,delay_between_press,timer)
+        press_enter(repeat_times,delay_between_press,time_till_stop)
+    if event.Key == Key.enter:
+        return True
 
 
 def press_enter(num_presses, delay, duration):
@@ -20,20 +22,10 @@ def press_enter(num_presses, delay, duration):
 
     while time.time() < end_time:
         for _ in range(num_presses):
-            keyboard.press('enter')
-            keyboard.release('enter')
+            keyboard.press(Key.enter)
             time.sleep(delay)
-
-def loop(key,times,delay,timer):
-    print("hi")
-    num = 0
-    while num < times: 
-        keyboard.press(13)
-        keyboard.release(13)
-        time.sleep(delay)
-        num +=1
-    time.sleep(timer)
-    return True
+            keyboard.release(Key.enter)
+            
 
 #loop(key_to_press,repeat_times,delay_between_press,time_till_stop)
 
@@ -67,3 +59,4 @@ hm.KeyDown = check_if_Q
 hm.HookKeyboard()
 # wait forever
 pythoncom.PumpMessages()
+
