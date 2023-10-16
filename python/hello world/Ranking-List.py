@@ -36,12 +36,13 @@ def insert_item(num,data):
     finished_object = item_make(num,data)
     for item in ranking_List:
         print(item.rank,item.data)
-        if item.rank <= num:
+        if item.rank >= num:
             item.rank +=1
-    ranking_List.insert(finished_object.rank,finished_object)
+    ranking_List.insert(num-1,finished_object)
 
-
-
+def remove_atPosition(num):
+    for item in ranking_List:
+        if item.rank
 
 
 while loop:
@@ -71,9 +72,9 @@ while loop:
     elif selection == "3":
         print(Remove_last())
     elif selection == "4":
-        insert_item(int(input("Insert Position: ")),input("Item to Insert"))
+        insert_item(int(input("Insert Position: ")),input("Item to Insert: "))
     elif selection == "5":
-        print ("\nOption 5")
+        remove_atPosition(int(input("Reomve Position: ")))
     elif selection == "6":
         print("\nOption 6")
     elif selection == "7":
