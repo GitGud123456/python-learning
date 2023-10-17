@@ -68,8 +68,6 @@ while loop:
     # Get Menu Selection from User
 
     selection = input("Enter Selection (1-8): ")
-
-
     # Take Action Based on Menu Selection
 
     if selection == "1":
