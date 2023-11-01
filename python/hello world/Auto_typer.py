@@ -19,7 +19,7 @@ def get_rand_delay():
 
 
 def start(start_key):
-    if start_key == keyboard.Key.caps_lock:
+    if start_key == keyboard.Key.esc:
         press_key(array)
 
 
